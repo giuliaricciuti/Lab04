@@ -4,6 +4,8 @@ import model as md
 
 class SpellChecker:
 
+
+
     def __init__(self, view):
         self._multiDic = md.MultiDictionary()
         self._view = view
@@ -43,6 +45,27 @@ class SpellChecker:
                 return paroleErrate, t2 - t1
             case _:
                 return None
+
+    def handleChangeLan(self, e):
+        language = e.control.value
+        self._view.setTxtout(f"hai scelto {language}")
+        self._view.page.update()
+
+    def handleChangeSearch(self, e):
+        search = e.control.value
+        self._view.setTxtout2(f"hai scelto {search}")
+        self._view.page.update()
+
+    def handleSpellCheck(self, e):
+        txtIn = self._view.getFrase()
+        language = self._view.getLanguage()
+        modality = self._view.getSearch()
+        if txtIn=="" or modality=="" or language=="":
+            self._view.showWarning()
+        else:
+            errate= self.handleSentence(txtIn, language, modality)[0]
+            time= self.handleSentence(txtIn, language, modality)[1]
+            self._view.showResult(txtIn, errate, time)
 
 
     def printMenu(self):

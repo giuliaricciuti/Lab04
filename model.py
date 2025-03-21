@@ -42,6 +42,7 @@ class MultiDictionary:
             if (found):
                 richW.corretta = True
 
+
             parole.append(richW)
 
         return parole
